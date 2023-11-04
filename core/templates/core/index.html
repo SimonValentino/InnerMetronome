@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static "metronome.css" %}">
-    <script src="{% static "metronome.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/metronome.css" %}">
+    <script src="{% static "js/metronome.js" %}"></script>
 {% endblock head %}
 
 {% block body %}
@@ -14,7 +14,7 @@
                 <label for="tempo">Tempo (BPM):</label>
                 <input type="number" id="tempo" min="30" max="240" step="1" value="120">
             </div>
-            <button id="start-top">Start</button>
+            <button id="start-stop">Start</button>
         </div>
     </div>
 {% endblock body %}
