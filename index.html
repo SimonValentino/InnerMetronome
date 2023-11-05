@@ -8,6 +8,10 @@
     <title>Inner Metronome</title>
   </head>
   <body>
+    <div class="title">
+      <h1>Inner Metronome</h1>
+      <h2>by Simon Valentino</h2>
+    </div>
     <div class="container">
       <div class="metronome">
         <div class="bpm-display">
@@ -27,6 +31,27 @@
           <div class="adjust-beats add-beat">+</div>
         </div>
         <span class="beats-per-measure-text">BEATS PER MEASURE</span>
+        <div class="mute-settings">
+          <div class="switch-label">
+            <label class="switch" for="mute-every-other">
+              <input
+                id="mute-every-other"
+                class="mute-every-other"
+                type="checkbox"
+              />
+              <span class="toggle round"></span>
+            </label>
+            <label class="toggle-text" for="mute-every-other">Mute every other measure</label>
+          </div>
+
+          <div class="switch-label">
+            <label class="switch" for="mute-randomly">
+              <input id="mute-randomly" class="mute-randomly" type="checkbox" />
+              <span class="toggle round"></span>
+            </label>
+            <label class="toggle-text" for="mute-randomly">Mute random measures</label>
+          </div>
+        </div>
       </div>
     </div>
   </body>

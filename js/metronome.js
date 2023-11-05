@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const subtractBeat = document.querySelector(".subtract-beat");
     const addBeat = document.querySelector(".add-beat");
     const beatsPerMeasureCount = document.querySelector(".beats-per-measure");
+    const muteEveryOtherToggle = document.getElementById("mute-every-other");
+    const muteRandomlyToggle = document.getElementById("mute-randomly");
 
     const downbeat = new Audio("assets/downbeat.mp3");
     const tick = new Audio("assets/tick.mp3");
@@ -163,4 +165,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
         beatNumber++;
     }
+
+    muteEveryOtherToggle.addEventListener("change", () => {
+        if (muteEveryOtherToggle.checked) {
+            metronome.stopEveryOther = true;
+            metronome.stopRandomly = false;
+            muteRandomlyToggle.checked = false;
+        } else {
+            metronome.stopEveryOther = false;
+        }
+    });
+
+    muteRandomlyToggle.addEventListener("change", () => {
+        if (muteRandomlyToggle.checked) {
+            metronome.stopRandomly = true;
+            metronome.stopEveryOther = false;
+            muteEveryOtherToggle.checked = false;
+        } else {
+            metronome.stopRandomly = false;
+        }
+    });
 });
