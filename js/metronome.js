@@ -212,8 +212,6 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             muteEveryOther = false;
         }
-
-        beatNumber = 1;
     });
 
     muteRandomlyToggle.addEventListener("change", () => {
@@ -224,8 +222,6 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             muteRandomly = false;
         }
-
-        beatNumber = 1;
     });
 
     randomMuteSlider.addEventListener("input", () => {
