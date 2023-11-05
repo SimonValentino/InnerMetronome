@@ -1,5 +1,3 @@
-import Timer from "./timer.js"
-
 document.addEventListener("DOMContentLoaded", function() {
     const tempo = document.querySelector(".tempo");
     const tempoDescription = document.querySelector(".tempo-description");
@@ -17,51 +15,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const downbeat = new Audio("assets/downbeat.mp3");
     downbeat.volume = 1;
-    
+
     const tick = new Audio("assets/tick.mp3");
     tick.volume = 1;
-    
+
     const bpmIncreaseWhenHoldingSpeed = 70;
     const bpmButtonRequiredHoldingTime = 300;
-    
+
     let bpm = 140;
     const minBPM = 20;
     const maxBPM = 260;
-    
+
     let beatsPerMeasure = 4;
     let beatNumber = 1;
     const minBeatsPerMeasure = 1;
     const maxBeatsPerMeasure = 12;
-    
+
     let tempoDescriptionString = "Allegro";
-    
-    const metronome = new Timer(playTick, 60_000 / bpm, {});
+
+    const audioContext = new AudioContext();
     let isRunning = false;
-    
+    let intervalID;
+
     let muteEveryOther = false;
     let muteRandomly = false;
     let currentMeasureMuted = false;
     let percentMeasuresMuted = 33;
-    
-    startStop.addEventListener("click", () => {
-        beatNumber = 1;
 
+    function startMetronome() {
+        beatNumber = 1;
         if (!isRunning) {
-            metronome.start();
+            const intervalTime = 60 / bpm;
+            intervalID = setInterval(playTick, intervalTime * 1000);
             isRunning = true;
             startStop.textContent = "Stop";
+        }
+    }
+
+    function stopMetronome() {
+        clearInterval(intervalID);
+        isRunning = false;
+        startStop.textContent = "Start";
+    }
+
+    startStop.addEventListener("click", () => {
+        if (isRunning) {
+            stopMetronome();
         } else {
-            metronome.stop();
-            isRunning = false;
-            startStop.textContent = "Start";
+            startMetronome();
         }
     });
 
     function updateTempo() {
         tempo.textContent = bpm;
         slider.value = bpm;
-
-        metronome.timeInterval = 60_000 / bpm;
 
         if (bpm < 40) tempoDescriptionString = "Grave";
         else if (bpm < 60) tempoDescriptionString = "Largo";
@@ -185,14 +192,14 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 playDownbeat();
             }
-            
+
             beatNumber = 2;
         } else {
             if (!currentMeasureMuted) {
                 tick.play();
                 tick.currentTime = 0;
             }
-            
+
             beatNumber++;
         }
     }
