@@ -33,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const metronome = new Timer(playTick, 60_000 / bpm, {});
     let isRunning = false;
 
+    let muteEveryOther = false;
+    let muteRandomly = false;
+    let currentMeasureMuted = false;
+
     startStop.addEventListener("click", () => {
         beatNumber = 1;
 
@@ -153,36 +157,61 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    function playDownbeat() {
+        downbeat.play();
+        downbeat.currentTime = 0;
+    }
+
     function playTick() {
         if (beatNumber > beatsPerMeasure || beatNumber === 1) {
-            downbeat.play();
-            downbeat.currentTime = 0;
-            beatNumber = 1;
+            if (muteEveryOther) {
+                if (currentMeasureMuted) {
+                    currentMeasureMuted = false;
+                    playDownbeat();
+                } else {
+                    currentMeasureMuted = true;
+                }
+            } else if (muteRandomly) {
+                currentMeasureMuted = Math.random() < 0.5;
+                if (!currentMeasureMuted) {
+                    playDownbeat();
+                }
+            } else {
+                playDownbeat();
+            }
+            
+            beatNumber = 2;
         } else {
-            tick.play()
-            tick.currentTime = 0;
+            if (!currentMeasureMuted) {
+                tick.play();
+                tick.currentTime = 0;
+            }
+            
+            beatNumber++;
         }
-
-        beatNumber++;
     }
 
     muteEveryOtherToggle.addEventListener("change", () => {
         if (muteEveryOtherToggle.checked) {
-            metronome.stopEveryOther = true;
-            metronome.stopRandomly = false;
+            muteEveryOther = true;
+            muteRandomly = false;
             muteRandomlyToggle.checked = false;
         } else {
-            metronome.stopEveryOther = false;
+            muteEveryOther = false;
         }
+
+        beatNumber = 1;
     });
 
     muteRandomlyToggle.addEventListener("change", () => {
         if (muteRandomlyToggle.checked) {
-            metronome.stopRandomly = true;
-            metronome.stopEveryOther = false;
+            muteRandomly = true;
+            muteEveryOther = false;
             muteEveryOtherToggle.checked = false;
         } else {
-            metronome.stopRandomly = false;
+            muteRandomly = false;
         }
+
+        beatNumber = 1;
     });
 });
