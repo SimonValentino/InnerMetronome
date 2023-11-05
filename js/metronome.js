@@ -12,31 +12,37 @@ document.addEventListener("DOMContentLoaded", function() {
     const beatsPerMeasureCount = document.querySelector(".beats-per-measure");
     const muteEveryOtherToggle = document.getElementById("mute-every-other");
     const muteRandomlyToggle = document.getElementById("mute-randomly");
+    const randomMuteSlider = document.querySelector(".random-mute-slider");
+    const randomMuteText = document.querySelector(".random-mute-text");
 
     const downbeat = new Audio("assets/downbeat.mp3");
+    downbeat.volume = 1;
+    
     const tick = new Audio("assets/tick.mp3");
-
+    tick.volume = 1;
+    
     const bpmIncreaseWhenHoldingSpeed = 70;
     const bpmButtonRequiredHoldingTime = 300;
     
     let bpm = 140;
-    let minBPM = 20;
-    let maxBPM = 260;
+    const minBPM = 20;
+    const maxBPM = 260;
     
     let beatsPerMeasure = 4;
     let beatNumber = 1;
-    let minBeatsPerMeasure = 1;
-    let maxBeatsPerMeasure = 12;
+    const minBeatsPerMeasure = 1;
+    const maxBeatsPerMeasure = 12;
     
     let tempoDescriptionString = "Allegro";
-
+    
     const metronome = new Timer(playTick, 60_000 / bpm, {});
     let isRunning = false;
-
+    
     let muteEveryOther = false;
     let muteRandomly = false;
     let currentMeasureMuted = false;
-
+    let percentMeasuresMuted = 33;
+    
     startStop.addEventListener("click", () => {
         beatNumber = 1;
 
@@ -172,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     currentMeasureMuted = true;
                 }
             } else if (muteRandomly) {
-                currentMeasureMuted = Math.random() < 0.5;
+                currentMeasureMuted = Math.random() < percentMeasuresMuted / 100;
                 if (!currentMeasureMuted) {
                     playDownbeat();
                 }
@@ -213,5 +219,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         beatNumber = 1;
+    });
+
+    randomMuteSlider.addEventListener("input", () => {
+        percentMeasuresMuted = randomMuteSlider.value;
+        randomMuteText.textContent = percentMeasuresMuted + "%";
+        randomMuteSlider.value = percentMeasuresMuted;
     });
 });
