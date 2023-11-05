@@ -1,78 +1,183 @@
-body,
-html {
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+:root {
+    --primary: #fa545c;
+    --secondary: #f18343;
+    --secondary-lighter: #ec8e57;
+    --tertiary: #efa81b;
+    --bg: #e0d8ba;
+    --bg-lighter: rgb(244, 222, 199);
+}
+
+* {
     padding: 0;
-    height: 100%;
+    margin: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    font-family: "Raleway", sans-serif;
+    color: rgb(94, 94, 94);
+    background: var(--bg);
+    font-size: 1.2em;
 }
 
 .container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+.metronome {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 370px;
+    justify-content: space-between;
 }
 
-.metronome {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.bpm-display {
+    width: 100%;
+    text-align: center;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.tempo {
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.tempo-description {
+    font-size: 0.95em;
+    text-transform: uppercase;
     text-align: center;
 }
 
-.tempo-control {
-    margin-bottom: 20px;
+.tempo-settings {
+    display: flex;
+    justify-content: space-between;
 }
 
-label {
-    font-size: 16px;
-    color: #333;
-}
-
-input {
-    width: 50px;
-    padding: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#start-stop {
-    background-color: #007BFF;
-    color: #fff;
-    font-size: 16px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+.adjust-tempo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 3em;
 }
 
-#start-stop:hover {
-    background-color: #0056b3;
+.adjust-tempo:hover {
+    background: var(--secondary);
+    color: var(--bg-lighter);
 }
 
-.metronome-tick {
+.decrease-tempo {
+    line-height: 22px;
+}
+
+.increase-tempo {
+    line-height: 30px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    width: 60%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]::-focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: var(--tertiary);
+}
+
+input[type=range]::-moz-range-thumb{
+    -webkit-appearance: none;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: var(--tertiary);
+    border: none;
+    margin-top: -9.5px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 19px;
+    background: var(--bg-lighter);
+    border-radius: 9.5px;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 19px;
+    background: var(--bg-lighter);
+    border-radius: 9.5px;
+}
+
+.start-stop {
+    width: 90px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 1.2em;
+    text-align: center;
+    background: var(--secondary);
+    color: var(--bg-lighter);
+    line-height: 50px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.start-stop:hover {
+    background: var(--secondary-lighter);
+    color: var(--bg-lighter);
+}
+
+.measure-settings {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.adjust-beats {
     width: 20px;
     height: 20px;
-    background-color: #007BFF;
     border-radius: 50%;
-    margin: 10px;
-    display: inline-block;
+    font-size: 1.2em;
+    text-align: center;
+    margin-left: 20px;
+    margin: 10px 20px;
+    cursor: pointer;
 }
 
-.active .metronome-tick {
-    background-color: #2ECC40;
+.adjust-beats:hover {
+    background: var(--secondary);
+    color: var(--bg-lighter);
+}
+
+.subtract-beat {
+    line-height: 16px;
+}
+
+.add-beat {
+    line-height: 21px;
+}
+
+.beats-per-measure-text {
+    text-align: center;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    margin-top: -23px;
 }
