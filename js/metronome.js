@@ -1,29 +1,55 @@
+import Timer from "./timer.js"
+
 document.addEventListener("DOMContentLoaded", function() {
     const tempo = document.querySelector(".tempo");
     const tempoDescription = document.querySelector(".tempo-description");
     const decreaseTempo = document.querySelector(".decrease-tempo");
     const increaseTempo = document.querySelector(".increase-tempo");
     const slider = document.querySelector(".slider");
+    const startStop = document.querySelector(".start-stop");
     const subtractBeat = document.querySelector(".subtract-beat");
     const addBeat = document.querySelector(".add-beat");
     const beatsPerMeasureCount = document.querySelector(".beats-per-measure");
 
+    const downbeat = new Audio("assets/downbeat.mp3");
+    const tick = new Audio("assets/tick.mp3");
+
     const bpmIncreaseWhenHoldingSpeed = 70;
     const bpmButtonRequiredHoldingTime = 300;
-
+    
     let bpm = 140;
     let minBPM = 20;
     let maxBPM = 260;
-
+    
     let beatsPerMeasure = 4;
+    let beatNumber = 1;
     let minBeatsPerMeasure = 1;
     let maxBeatsPerMeasure = 12;
-
+    
     let tempoDescriptionString = "Allegro";
+
+    const metronome = new Timer(playTick, 60_000 / bpm, {});
+    let isRunning = false;
+
+    startStop.addEventListener("click", () => {
+        beatNumber = 1;
+
+        if (!isRunning) {
+            metronome.start();
+            isRunning = true;
+            startStop.textContent = "Stop";
+        } else {
+            metronome.stop();
+            isRunning = false;
+            startStop.textContent = "Start";
+        }
+    });
 
     function updateTempo() {
         tempo.textContent = bpm;
         slider.value = bpm;
+
+        metronome.timeInterval = 60_000 / bpm;
 
         if (bpm < 40) tempoDescriptionString = "Grave";
         else if (bpm < 60) tempoDescriptionString = "Largo";
@@ -122,4 +148,17 @@ document.addEventListener("DOMContentLoaded", function() {
             beatsPerMeasureCount.textContent = beatsPerMeasure;
         }
     });
+
+    function playTick() {
+        if (beatNumber > beatsPerMeasure || beatNumber === 1) {
+            downbeat.play();
+            downbeat.currentTime = 0;
+            beatNumber = 1;
+        } else {
+            tick.play()
+            tick.currentTime = 0;
+        }
+
+        beatNumber++;
+    }
 });

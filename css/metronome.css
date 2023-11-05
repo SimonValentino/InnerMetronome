@@ -139,6 +139,7 @@ input[type=range]::-moz-range-track {
     line-height: 50px;
     margin: 0 auto;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 .start-stop:hover {
