@@ -293,7 +293,7 @@ input:checked+.toggle:before {
 }
 
 .random-mute-slider {
-    width: 110%;
+    width: 150px;
     height: 14px;
     margin: 5px auto;
     background-color: var(--bg-lighter);
