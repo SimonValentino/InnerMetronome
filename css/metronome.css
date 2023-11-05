@@ -19,6 +19,7 @@ body {
     color: rgb(94, 94, 94);
     background: var(--bg);
     font-size: 1.2em;
+    user-select: none;
 }
 
 .container {
