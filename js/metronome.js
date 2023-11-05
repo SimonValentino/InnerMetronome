@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (beatsPerMeasure > minBeatsPerMeasure) {
             beatsPerMeasure--;
             beatsPerMeasureCount.textContent = beatsPerMeasure;
+            beatNumber = 1;
         }
     });
 
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (beatsPerMeasure < maxBeatsPerMeasure) {
             beatsPerMeasure++;
             beatsPerMeasureCount.textContent = beatsPerMeasure;
+            beatNumber = 1;
         }
     });
 
