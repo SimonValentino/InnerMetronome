@@ -8,11 +8,11 @@
     <title>Inner Metronome</title>
   </head>
   <body>
-    <div class="title">
-      <h1>Inner Metronome</h1>
-      <h2>by Simon Valentino</h2>
-    </div>
     <div class="container">
+      <div class="title">
+        <h1>Inner Metronome</h1>
+        <h2>by Simon Valentino</h2>
+      </div>
       <div class="metronome">
         <div class="bpm-display">
           <span class="tempo">140</span>
@@ -41,20 +41,34 @@
               />
               <span class="toggle round"></span>
             </label>
-            <label class="toggle-text" for="mute-every-other">Mute every other measure</label>
+            <label class="toggle-text" for="mute-every-other"
+              >Mute every other measure</label
+            >
           </div>
 
           <div class="switch-label">
             <label class="switch" for="mute-randomly">
-              <input id="mute-randomly" class="mute-randomly" type="checkbox" />
+              <input
+                id="mute-randomly"
+                class="mute-randomly"
+                type="checkbox"
+              />
               <span class="toggle round"></span>
             </label>
-            <label class="toggle-text" for="mute-randomly">Mute random measures</label>
+            <label class="toggle-text" for="mute-randomly"
+              >Mute random measures</label
+            >
           </div>
-          <div class="random-mute-settings">
-            <input class="random-mute-slider" type="range" min="0" max="100" step="10" />
-            <span class="random-mute-text">50%</span>
-          </div>
+        </div>
+        <div class="random-mute-settings">
+          <input
+            class="random-mute-slider"
+            type="range"
+            min="0"
+            max="100"
+            step="10"
+          />
+          <span class="random-mute-text">50%</span>
         </div>
       </div>
     </div>

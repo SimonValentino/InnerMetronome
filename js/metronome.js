@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let tempoDescriptionString = "Allegro";
 
-    const audioContext = new AudioContext();
     let isRunning = false;
     let intervalID;
+    let intervalTime = 60 / bpm;
 
     let muteEveryOther = false;
     let muteRandomly = false;
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function startMetronome() {
         beatNumber = 1;
         if (!isRunning) {
-            const intervalTime = 60 / bpm;
+            clearInterval(intervalID);
             intervalID = setInterval(playTick, intervalTime * 1000);
             isRunning = true;
             startStop.textContent = "Stop";
@@ -81,6 +81,13 @@ document.addEventListener("DOMContentLoaded", function() {
         else if (bpm >= 200) tempoDescriptionString = "Prestissimo";
 
         tempoDescription.textContent = tempoDescriptionString;
+
+        intervalTime = 60 / bpm;
+
+        if (isRunning) {
+            clearInterval(intervalID);
+            intervalID = setInterval(playTick, intervalTime * 1000);
+        }
     }
 
     decreaseTempo.addEventListener("click", () => {
@@ -209,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
             muteEveryOther = true;
             muteRandomly = false;
             muteRandomlyToggle.checked = false;
+            document.querySelector(".random-mute-settings").style.display = "none";
         } else {
             muteEveryOther = false;
         }
@@ -219,8 +227,10 @@ document.addEventListener("DOMContentLoaded", function() {
             muteRandomly = true;
             muteEveryOther = false;
             muteEveryOtherToggle.checked = false;
+            document.querySelector(".random-mute-settings").style.display = "flex";
         } else {
             muteRandomly = false;
+            document.querySelector(".random-mute-settings").style.display = "none";
         }
     });
 
